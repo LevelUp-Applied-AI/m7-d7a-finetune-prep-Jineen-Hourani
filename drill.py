@@ -19,10 +19,14 @@ def make_dataset(csv_path: str, test_size: float, seed: int) -> DatasetDict:
     Returns a DatasetDict with keys "train" and "test".
     """
     # TODO: read csv_path with pandas
+    df = pd.read_csv(csv_path)
     # TODO: convert to a Hugging Face Dataset (preserve_index=False)
+    hf_dataset = Dataset.from_pandas(df, preserve_index=False)
     # TODO: split with the passed test_size and seed
+    split_dataset = hf_dataset.train_test_split(test_size=test_size, seed=seed)
     # TODO: return the resulting DatasetDict
-    raise NotImplementedError
+    return split_dataset
+    
 
 
 def tokenize_dataset(ds_dict: DatasetDict, tokenizer_name: str, max_length: int) -> DatasetDict:
